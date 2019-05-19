@@ -42,11 +42,22 @@ export default class Index extends Component<any, any> {
     })
   }
 
+  changeTabbar(active) {
+    this.setState({
+      active
+    })
+  }
+
   render () {
     const { active } = this.state
     return (
       <View className='index' style={{height: '200vh'}}>
         <Button onClick={this.handleClick.bind(this)}> GOGOGO </Button>
+
+        {active == 0 && <View>tab 0</View>}
+        {active == 1 && <View>tab 1</View>}
+        {active == 2 && <View>tab 2</View>}
+        {active == 3 && <View>tab 3</View>}
 
         <View style={{
           display: 'flex',
@@ -54,23 +65,17 @@ export default class Index extends Component<any, any> {
           bottom: 0,
           width: '100%'
         }}>
-          <View
-           style={{
-            flex: 1,
-            backgroundColor: active == 0 ? 'red' : ''
-          }}>1</View>
-          <View style={{
-            flex: 1,
-            backgroundColor: active == 1 ? 'red' : ''
-          }}>1</View>
-          <View style={{
-            flex: 1,
-            backgroundColor: active == 2 ? 'red' : ''
-          }}>1</View>
-          <View style={{
-            flex: 1,
-            backgroundColor: active == 3 ? 'red' : ''
-          }}>1</View>
+
+          {
+            [0,1,2,3].map(item => (
+              <View key={item} onClick={this.changeTabbar.bind(this, item)} style={{
+                flex: 1,
+                backgroundColor: active == item ? 'red' : ''
+              }}>
+                {item} 
+              </View>
+            ))
+          }
         </View>
       </View>
     )
